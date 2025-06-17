@@ -184,8 +184,6 @@ twilio==9.2.3
 typing_extensions==4.12.2
 tzdata==2024.1
 tzlocal==5.2
-ultralytics==8.3.7
-ultralytics-thop==2.0.9
 uritemplate==4.1.1
 uritools==4.0.3
 urllib3==2.2.2
