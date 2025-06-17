@@ -1,0 +1,385 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 hero-content" data-aos="fade-up">
+                <h1>Hello, I'm Tanish Belel</h1>
+                 <div class="typing-container">
+                    <span class="static-text text-white">I'm a</span>&nbsp;<span class="typed-text text-white"></span><span
+                        class="cursor">&nbsp;</span>
+                </div>
+                <p class="mb-4">
+                    {% if profile %}{{ profile.bio|truncatewords:30 }}{% else %}I create amazing digital experiences that help businesses grow and succeed in the modern world.{% endif %}
+                </p>
+                <div class="hero-buttons">
+                    <a href="{% url 'main:projects' %}" class="btn btn-primary me-3">
+                        <i class="fas fa-code me-2"></i>View My Work
+                    </a>
+                    <a href="{% url 'main:contact' %}" class="btn btn-outline-light">
+                        <i class="fas fa-envelope me-2"></i>Get In Touch
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center" data-aos="fade-left" data-aos-delay="200">
+                {% if profile.profile_image %}
+                <img src="{{ profile.profile_image.url }}" alt="{{ profile.name }}" 
+                     class="img-fluid rounded-circle" style="width: 300px; height: 300px; object-fit: cover; border: 5px solid rgba(255,255,255,0.3);">
+                {% else %}
+                <div class="profile-placeholder" style="width: 300px; height: 300px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                    <i class="fas fa-user" style="font-size: 80px; color: rgba(255,255,255,0.7);"></i>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section class="section" style="background: var(--light-gray);">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Skills & Expertise</h2>
+        <div class="row">
+            {% for skill in featured_skills %}
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="skill-item">
+                    <i class="fas fa-{% if skill.category == 'technical' %}code{% elif skill.category == 'tools' %}tools{% else %}lightbulb{% endif %}"></i>
+                    <h5>{{ skill.name }}</h5>
+                   
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No skills added yet. Add skills from the admin panel.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Featured Projects -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Featured Projects</h2>
+        <div class="row">
+            {% for project in featured_projects %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="card" onclick="openModal('{{ project.image.url }}', '{{ project.title }}', '{{ project.description }}')">
+                    {% if project.image %}
+                    <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}">
+                    {% else %}
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="fas fa-project-diagram fa-3x text-muted"></i>
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.title }}</h5>
+                        <p class="card-text">{{ project.description|truncatewords:15 }}</p>
+                        <div class="mb-3">
+                            {% for tech in project.technologies|slice:":3" %}
+                            <span class="badge bg-secondary me-1">{{ tech|title }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            {% if project.github_url %}
+                            <a href="{{ project.github_url }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                                <i class="fab fa-github m-2"></i>Code
+                            </a>
+                            {% endif %}
+                            {% if project.live_url %}
+                            <a href="{{ project.live_url }}" class="btn btn-primary btn-sm" target="_blank">
+                                <i class="fas fa-external-link-alt me-1"></i>Live Demo
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No featured projects yet. Add projects from the admin panel.</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% if featured_projects %}
+        <div class="text-center mt-4" data-aos="fade-up">
+            <a href="{% url 'main:projects' %}" class="btn btn-outline-primary">
+                <i class="fas fa-eye me-2"></i>View All Projects
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Certificates Section -->
+<section class="section" style="background: var(--light-gray);">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Latest Certificates</h2>
+        <div class="row">
+            {% for certificate in featured_certificates %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="certificate-item" onclick="openModal('{{ certificate.certificate_image.url }}', '{{ certificate.title }}', '{{ certificate.description }}')">
+                    {% if certificate.certificate_image %}
+                    <img src="{{ certificate.certificate_image.url }}" alt="{{ certificate.title }}" class="certificate-img">
+                    {% else %}
+                    <div class="certificate-img bg-light d-flex align-items-center justify-content-center">
+                        <i class="fas fa-certificate fa-3x text-muted"></i>
+                    </div>
+                    {% endif %}
+                    <div class="p-3">
+                        <h6 class="mb-2">{{ certificate.title }}</h6>
+                        <p class="card-text mb-2">{{ certificate.issuer }}</p>
+                        <small class="card-text">{{ certificate.issue_date|date:"M Y" }}</small>
+                        {% if certificate.credential_url %}
+                        <div class="mt-2">
+                            <a href="{{ certificate.credential_url }}" class="btn btn-sm btn-outline-primary" target="_blank">
+                                <i class="fas fa-external-link-alt me-1"></i>Verify
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No certificates added yet. Add certificates from the admin panel.</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% if featured_certificates %}
+        <div class="text-center mt-4" data-aos="fade-up">
+            <a href="{% url 'main:certificates' %}" class="btn btn-outline-primary">
+                <i class="fas fa-certificate me-2"></i>View All Certificates
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+
+
+<!-- CTA Section -->
+<section class="section" style="background: var(--primary-color); color: white;">
+    <div class="container text-center">
+        <div data-aos="fade-up">
+            <h2>Ready to Work Together?</h2>
+            <p class="lead">Let's discuss your next project and bring your ideas to life.</p>
+            <a href="{% url 'main:contact' %}" class="btn btn-light btn-lg">
+                <i class="fas fa-paper-plane me-2"></i>Start a Conversation
+            </a>
+        </div>
+    </div>
+</section>
+<div id="achievementModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-image-container">
+                <img id="modalImage" src="" alt="Achievement">
+            </div>
+            <div class="modal-text">
+                <h2 id="modalTitle"></h2>
+                <p id="modalDescription"></p>
+            </div>
+        </div>
+    </div>
+<style>
+    .typing-container {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    margin-top: 0.5rem;
+    min-height: 50px;
+    color: #3182ce;
+}
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 24px;
+    max-width: 90%;
+    width: 800px;
+    position: relative;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.modal-image-container {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.modal-image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-modal:hover {
+    color: var(--accent);
+}
+
+.modal-text {
+    text-align: center;
+}
+
+.modal-text h2 {
+    color: black;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.modal-text p {
+    color: black;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        padding: 1.5rem;
+    }
+}
+</style>
+<script>
+    const typedTextSpan = document.querySelector(".typed-text");
+const cursor = document.querySelector(".cursor");
+
+const textArray = ["Chill Guy", "Web Developer", "Programmer", "Problem Solver", "Entrepreneur", "Engineer"];
+const typingDelay = 100;
+const erasingDelay = 100;
+const newTextDelay = 500;
+let textArrayIndex = 0;
+let charIndex = 0;
+
+function type() {
+    if (charIndex < textArray[textArrayIndex].length) {
+        if (!cursor.classList.contains("typing")) cursor.classList.add("typing");
+        typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(type, typingDelay);
+    }
+    else {
+        cursor.classList.remove("typing");
+        setTimeout(erase, newTextDelay);
+    }
+}
+
+function erase() {
+    if (charIndex > 0) {
+        if (!cursor.classList.contains("typing")) cursor.classList.add("typing");
+        typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(erase, erasingDelay);
+    }
+    else {
+        cursor.classList.remove("typing");
+        textArrayIndex++;
+        if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+        setTimeout(type, typingDelay + 1100);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    if (textArray.length) setTimeout(type, newTextDelay + 250);
+});
+document.addEventListener('DOMContentLoaded', function () {
+    // Add click event listeners to all achievement cards
+    const achievementCards = document.querySelectorAll('.achievement-card');
+    achievementCards.forEach(card => {
+        card.addEventListener('click', function () {
+            const imageSrc = this.querySelector('img').src;
+            const title = this.querySelector('h3').textContent;
+            const description = this.querySelector('.achievement-overlay p').textContent;
+            openModal(imageSrc, title, description);
+        });
+    });
+});
+    function openModal(imageSrc, title, description) {
+    const modal = document.getElementById('achievementModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+
+    // Set modal content
+    modalImage.src = imageSrc;
+    modalTitle.textContent = title;
+    modalDescription.textContent = description;
+
+    // Show modal
+    modal.style.display = 'flex';
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
+    document.body.style.overflow = 'hidden';
+
+    // Close on background click
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Close on escape key
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    });
+}
+
+function closeModal() {
+    const modal = document.getElementById('achievementModal');
+    modal.classList.remove('show');
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300); // Match this with your CSS transition time
+    document.body.style.overflow = '';
+}
+
+// Add this to handle the close button click
+document.querySelector('.close-modal').addEventListener('click', function (e) {
+    e.preventDefault();
+    closeModal();
+});
+</script>
+
+{% endblock %}

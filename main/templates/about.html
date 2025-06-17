@@ -1,0 +1,571 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- About Hero Section -->
+<section class="hero about-hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <h1>About Me</h1>
+                <p class="lead">
+                    {% if profile %}{{ profile.bio }}{% else %}Passionate developer with a love for creating innovative solutions and helping businesses thrive in the digital world.{% endif %}
+                </p>
+                {% if profile.resume %}
+                <a href="{{ profile.resume.url }}" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-download me-2"></i>Download Resume
+                </a>
+                {% endif %}
+            </div>
+            <div class="col-lg-6 text-center" data-aos="fade-left" data-aos-delay="200">
+                {% if profile.profile_image %}
+                <img src="{{ profile.profile_image.url }}" alt="{{ profile.name }}" 
+                     class="img-fluid rounded about-image">
+                {% else %}
+                <div class="about-image-placeholder">
+                    <i class="fas fa-user"></i>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Personal Info Section -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="about-content con" data-aos="fade-up">
+                    <h2 class="section-title text">Get to Know Me</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="info-item">
+                                <i class="fas fa-user"></i>
+                                <div>
+                                    <strong>Name:</strong>
+                                    <span>{% if profile %}{{ profile.name }}{% else %}Tanish Belel{% endif %}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-item">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <strong>Email:</strong>
+                                    <span>{% if profile %}{{ profile.email }}{% else %}tanishbelel03@gmail.com{% endif %}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-item">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <strong>Phone:</strong>
+                                    <span>{% if profile %}{{ profile.phone }}{% else %}+91 9152092283{% endif %}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <strong>Location:</strong>
+                                    <span>{% if profile %}{{ profile.location }}{% else %}Mumbai, India{% endif %}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section class="section" style="background: var(--light-gray);">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Skills & Expertise</h2>
+        <div class="row">
+            {% for skill in featured_skills %}
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="skill-item">
+                    <i class="fas fa-{% if skill.category == 'technical' %}code{% elif skill.category == 'tools' %}tools{% else %}lightbulb{% endif %}"></i>
+                    <h5>{{ skill.name }}</h5>
+                   
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No skills added yet. Add skills from the admin panel.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Experience Section -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Professional Experience</h2>
+        <div class="timeline">
+            {% for exp in experience %}
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <h5 class = "text-black">{{ exp.position }}</h5>
+                    <h6 class="text-primary">{{ exp.company }}</h6>
+                    <div class="timeline-date">
+                        <i class="fas fa-calendar-alt me-2"></i>
+                        {{ exp.start_date|date:"M Y" }} - 
+                        {% if exp.end_date %}{{ exp.end_date|date:"M Y" }}{% else %}Present{% endif %}
+                    </div>
+                    <p class="mt-3 text-muted">{{ exp.description }}</p>
+                    {% if exp.technologies %}
+                    <div class="mt-3">
+                        <strong>Technologies:</strong>
+                        <div class="tech-tags mt-2">
+                            {% for tech in exp.technologies|slice:":5" %}
+                            <span class="badge bg-secondary me-1">{{ tech|title }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="text-center">
+                <p class="text-muted">No experience added yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Education Section -->
+<section class="section" style="background: var(--light-gray);">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Education</h2>
+        <div class="row">
+            {% for edu in education %}
+            <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="education-item">
+                    <div class="education-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="education-content">
+                        <h5 class = "text">{{ edu.degree }}</h5>
+                        <h6 class="text-primary">{{ edu.institution }}</h6>
+                        <div class="education-date">
+                            <i class="fas fa-calendar-alt me-2"></i>
+                            {{ edu.start_date|date:"Y" }} - 
+                            {% if edu.end_date %}{{ edu.end_date|date:"Y" }}{% else %}Present{% endif %}
+                        </div>
+                        {% if edu.gpa %}
+                        <div class="mt-2">
+                            <strong>GPA:</strong> {{ edu.gpa }}
+                        </div>
+                        {% endif %}
+                        {% if edu.description %}
+                        <p class="mt-3 text-muted">{{ edu.description }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No education records added yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Fun Facts Section -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Fun Facts</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="fun-fact">
+                    <i class="fas fa-code"></i>
+                    <h4 class="counter">{{ skills.count|default:"50" }}</h4>
+                    <p>Technologies Mastered</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="fun-fact">
+                    <i class="fas fa-project-diagram"></i>
+                    <h4 class="counter">25</h4>
+                    <p>Projects Completed</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="fun-fact">
+                    <i class="fas fa-coffee"></i>
+                    <h4 class="counter">1000</h4>
+                    <p>Cups of Coffee</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="fun-fact">
+                    <i class="fas fa-clock"></i>
+                    <h4 class="counter">5000+</h4>
+                    <p>Hours of Coding</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section" style="background: var(--primary-color); color: white;">
+    <div class="container text-center">
+        <div data-aos="fade-up">
+            <h2>Let's Build Something Amazing Together</h2>
+            <p class="lead">Ready to discuss your next project?</p>
+            <a href="{% url 'main:contact' %}" class="btn btn-light btn-lg me-3">
+                <i class="fas fa-envelope me-2"></i>Get In Touch
+            </a>
+            <a href="{% url 'main:projects' %}" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-eye me-2"></i>View My Work
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+/* About Page Specific Styles */
+.about-hero {
+    padding: 120px 0 80px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+}
+
+.about-image {
+    max-width: 400px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    border: 5px solid rgba(255,255,255,0.3);
+}
+
+.about-image-placeholder {
+    width: 400px;
+    height: 400px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.about-image-placeholder i {
+    font-size: 100px;
+    color: rgba(255,255,255,0.7);
+}
+
+.about-content {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-top: -50px;
+    position: relative;
+    z-index: 2;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: var(--light-gray);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.info-item:hover {
+    transform: translateY(-3px);
+}
+
+.info-item i {
+    font-size: 20px;
+    color: var(--primary-color);
+    margin-right: 15px;
+    width: 25px;
+    text-align: center;
+}
+
+.skill-item-detailed {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.skill-item-detailed:hover {
+    transform: translateY(-5px);
+}
+
+.skill-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.skill-percentage {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.progress {
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 10px;
+    transition: width 2s ease-in-out;
+}
+
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--primary-color);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+    padding-left: 80px;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: 20px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    border: 4px solid white;
+    box-shadow: 0 0 0 4px var(--primary-color);
+}
+
+.timeline-content {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.timeline-content::before {
+    content: '';
+    position: absolute;
+    left: -15px;
+    top: 20px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 15px solid white;
+}
+
+.timeline-date {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.tech-tags .badge {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+    margin-bottom: 5px;
+}
+
+.education-item {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: flex-start;
+    transition: transform 0.3s ease;
+}
+
+.education-item:hover {
+    transform: translateY(-5px);
+}
+
+.education-icon {
+    background: var(--primary-color);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.education-icon i {
+    font-size: 24px;
+}
+
+.education-content {
+    flex: 1;
+}
+
+.education-date {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.fun-fact {
+    text-align: center;
+    padding: 30px 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.fun-fact:hover {
+    transform: translateY(-10px);
+}
+
+.fun-fact i {
+    font-size: 48px;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.fun-fact h4 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.fun-fact p {
+    color: #666;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-hero {
+        padding: 80px 0 40px;
+    }
+    
+    .about-content {
+        margin-top: 30px;
+        padding: 30px 20px;
+    }
+    
+    .timeline::before {
+        left: 15px;
+    }
+    
+    .timeline-item {
+        padding-left: 50px;
+    }
+    
+    .timeline-marker {
+        left: 5px;
+    }
+    
+    .education-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .education-icon {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+}
+.text{
+    color: var(--text-color) !important;
+}
+.con{
+    background-color: var(--background-color);
+
+}
+</style>
+
+<script>
+// Counter Animation
+function animateCounters() {
+    const counters = document.querySelectorAll('.counter');
+    
+    counters.forEach(counter => {
+        const target = parseInt(counter.innerText);
+        const increment = target / 100;
+        let current = 0;
+        
+        const updateCounter = () => {
+            if (current < target) {
+                current += increment;
+                counter.innerText = Math.ceil(current);
+                setTimeout(updateCounter, 20);
+            } else {
+                counter.innerText = target;
+            }
+        };
+        
+        updateCounter();
+    });
+}
+
+// Trigger counter animation when section is visible
+const observerOptions = {
+    threshold: 0.7,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateCounters();
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+document.addEventListener('DOMContentLoaded', function() {
+    const funFactsSection = document.querySelector('.fun-fact').closest('.section');
+    if (funFactsSection) {
+        observer.observe(funFactsSection);
+    }
+    
+    // Animate progress bars
+    const progressBars = document.querySelectorAll('.progress-bar');
+    progressBars.forEach(bar => {
+        const percentage = bar.getAttribute('data-percentage');
+        setTimeout(() => {
+            bar.style.width = percentage + '%';
+        }, 500);
+    });
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+
+{% block title %}Certificates - {{ profile.name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="hero" style="padding: 120px 0 80px;">
+    <div class="container">
+        <div class="text-center">
+            <h1 data-aos="fade-up">My Certificates</h1>
+            <p class="lead" data-aos="fade-up" data-aos-delay="100">
+                Professional certifications and achievements
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Certificates Grid -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            {% for certificate in certificates %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="card" onclick="openModal('{{ certificate.certificate_image.url }}', '{{ certificate.title }}', '{{ certificate.description }}')">
+                    {% if certificate.certificate_image %}
+                    <img src="{{ certificate.certificate_image.url }}" class="card-img-top" alt="{{ certificate.title }}" style="height: 250px; object-fit: cover;">
+                    {% else %}
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 250px;">
+                        <i class="fas fa-certificate fa-4x text-muted"></i>
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ certificate.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text">{{ certificate.issuer }}</h6>
+                        <p class="card-text">
+                            <small class="text">
+                                <i class="fas fa-calendar me-1"></i>
+                                Issued: {{ certificate.issue_date|date:"M Y" }}
+                                {% if certificate.expiry_date %}
+                                <br>Expires: {{ certificate.expiry_date|date:"M Y" }}
+                                {% endif %}
+                            </small>
+                        </p>
+                        {% if certificate.description %}
+                        <p class="card-text">{{ certificate.description|truncatewords:15 }}</p>
+                        {% endif %}
+                        {% if certificate.credential_id %}
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <strong>ID:</strong> {{ certificate.credential_id }}
+                            </small>
+                        </p>
+                        {% endif %}
+                        {% if certificate.credential_url %}
+                        <a href="{{ certificate.credential_url }}" class="btn btn-primary btn-sm" target="_blank">
+                            <i class="fas fa-external-link-alt me-1"></i>Verify Certificate
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="text-center py-5">
+                    <i class="fas fa-certificate fa-4x text-muted mb-3"></i>
+                    <h4>No Certificates Yet</h4>
+                    <p class="text-muted">Certificates will be displayed here once added.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<div id="achievementModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-image-container">
+                <img id="modalImage" src="" alt="Achievement">
+            </div>
+            <div class="modal-text">
+                <h2 id="modalTitle"></h2>
+                <p id="modalDescription"></p>
+            </div>
+        </div>
+    </div>
+
+
+<style>
+    .text{
+    color: var(--text-color) !important;
+}
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 24px;
+    max-width: 90%;
+    width: 800px;
+    position: relative;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.modal-image-container {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.modal-image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-modal:hover {
+    color: var(--accent);
+}
+
+.modal-text {
+    text-align: center;
+}
+
+.modal-text h2 {
+    color: black;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.modal-text p {
+    color: black;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        padding: 1.5rem;
+    }
+}
+</style>
+<script>
+    function openModal(imageSrc, title, description) {
+    const modal = document.getElementById('achievementModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+
+    // Set modal content
+    modalImage.src = imageSrc;
+    modalTitle.textContent = title;
+    modalDescription.textContent = description;
+
+    // Show modal
+    modal.style.display = 'flex';
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
+    document.body.style.overflow = 'hidden';
+
+    // Close on background click
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Close on escape key
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    });
+}
+
+function closeModal() {
+    const modal = document.getElementById('achievementModal');
+    modal.classList.remove('show');
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300); // Match this with your CSS transition time
+    document.body.style.overflow = '';
+}
+
+// Add this to handle the close button click
+document.querySelector('.close-modal').addEventListener('click', function (e) {
+    e.preventDefault();
+    closeModal();
+});
+</script>
+{% endblock %}
