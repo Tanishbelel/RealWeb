@@ -136,3 +136,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # LinkedIn API Settings
 LINKEDIN_ACCESS_TOKEN = config('LINKEDIN_ACCESS_TOKEN', default='')
 LINKEDIN_PERSON_URN = config('LINKEDIN_PERSON_URN', default='')
+CSRF_TRUSTED_ORIGINS = [
+    "https://website-pux3.onrender.com",
+]
