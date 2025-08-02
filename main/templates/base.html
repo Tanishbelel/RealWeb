@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{{ profile.name }} - Portfolio{% endblock %}</title>
+    <title>{% block title %}{{ profile.name }} - Website{% endblock %}</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
@@ -13,6 +13,18 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <!-- Custom CSS -->
     <style>
+        @font-face {
+  font-family: 'Ethnocentric'; /* Use the same name for all styles */
+  src: url('../fonts/ethnocentric-regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Ethnocentric'; /* Use the same name for all styles */
+  src: url('../static/ethnocentric-italic.otf') format('opentype');
+  font-weight: normal;
+  font-style: italic;
+}
         :root {
             --primary-color: #2563eb;
             --secondary-color: #1e40af;
@@ -27,8 +39,8 @@
         }
 
         [data-theme="dark"] {
-            --primary-color: #60a5fa;
-            --secondary-color: #3b82f6;
+            --primary-color: #a77df9;
+            --secondary-color: #a77df9;
             --accent-color: #fbbf24;
             --text-color: #f9fafb;
             --light-gray: #1f2937;
@@ -46,36 +58,428 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    background-color: var(--bg-color);
+    padding: 2rem 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+/* This part controls the loader's visibility */
+#loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: white;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    font-family: 'Ethnocentric', 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#loader-wrapper.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Your Original Loader CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.grid-highlight {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: #a77df9;
+    opacity: 0;
+    animation: gridPulse 3s ease-in-out infinite;
+    z-index: 1;
+}
+
+.grid-highlight:nth-child(1) {
+    top: 10%;
+    left: 15%;
+    animation-delay: 0s;
+}
+
+.grid-highlight:nth-child(2) {
+    top: 25%;
+    right: 20%;
+    animation-delay: 0.5s;
+}
+
+.grid-highlight:nth-child(3) {
+    bottom: 30%;
+    left: 10%;
+    animation-delay: 1s;
+}
+
+.grid-highlight:nth-child(4) {
+    bottom: 15%;
+    right: 25%;
+    animation-delay: 1.5s;
+}
+
+.grid-highlight:nth-child(5) {
+    top: 40%;
+    left: 75%;
+    animation-delay: 2s;
+}
+
+.grid-highlight:nth-child(6) {
+    top: 70%;
+    left: 25%;
+    animation-delay: 2.5s;
+}
+
+.grid-highlight:nth-child(7) {
+    top: 35%;
+    right: 10%;
+    animation-delay: 0.8s;
+}
+
+.grid-highlight:nth-child(8) {
+    bottom: 45%;
+    right: 45%;
+    animation-delay: 1.8s;
+}
+
+@keyframes gridPulse {
+    0%, 70%, 100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+    15%, 55% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+}
+
+.loader-container {
+    position: relative;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    z-index: 2;
+}
+
+.letter {
+    font-size: 80px;
+    font-weight: bold;
+    position: relative;
+    opacity: 0;
+    color: #000;
+    transform: translateY(50px) rotateX(90deg);
+    animation: revealLetter 0.8s ease-out forwards, colorShift 4s ease-in-out infinite;
+}
+
+.letter:nth-child(3) {
+    animation: revealLetter 0.8s ease-out forwards, colorShift 4s ease-in-out infinite;
+    animation-delay: 0.2s, 1s;
+}
+
+.letter:nth-child(4) {
+    animation: revealLetter 0.8s ease-out forwards, colorShift 4s ease-in-out infinite;
+    animation-delay: 0.4s, 2s;
+}
+
+.letter:nth-child(5) {
+    animation: revealLetter 0.8s ease-out forwards, colorShift 4s ease-in-out infinite;
+    animation-delay: 0.6s, 3s;
+}
+
+.letter:nth-child(6) {
+    animation: revealLetter 0.8s ease-out forwards, colorShift 4s ease-in-out infinite;
+    animation-delay: 0.8s, 4s;
+}
+
+@keyframes revealLetter {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) rotateX(90deg) scale(0.5);
+    }
+    50% {
+        opacity: 0.7;
+        transform: translateY(10px) rotateX(45deg) scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg) scale(1);
+    }
+}
+
+@keyframes colorShift {
+    0%, 75%, 100% {
+        color: #000;
+        text-shadow: none;
+    }
+    25% {
+        color: #8b5cf6;
+        text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+    }
+}
+
+.loading-bar {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 4px;
+    background: #f0f0f0;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.loading-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #000, #8b5cf6, #000);
+    border-radius: 2px;
+    width: 0%;
+    animation: loadProgress 3s ease-in-out infinite;
+}
+
+@keyframes loadProgress {
+    0% { width: 0%; }
+    50% { width: 100%; }
+    100% { width: 100%; }
+}
+
+.orbit {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border: 2px solid rgba(139, 92, 246, 0.2);
+    border-radius: 50%;
+    animation: rotate 8s linear infinite;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.orbit::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background: #8b5cf6;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+.orbit::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    right: 50%;
+    width: 8px;
+    height: 8px;
+    background: #000;
+    border-radius: 50%;
+    transform: translateX(50%);
+}
+
+@keyframes rotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.pulse-ring {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    animation: pulse 4s ease-in-out infinite;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.3;
+    }
+}
+
+.loading-text {
+    position: absolute;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: #666;
+    animation: fadeInOut 2s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+/* 4. Main Page Container */
+.page-container {
+    border: 1px solid var(--border-color);
+    border-radius: 1.25rem;
+    background-color: var(--card-bg);
+    box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.08);
+    overflow: hidden; /* Important for border-radius */
+    transition: all 0.3s ease-in-out;
+}
+
+.glass-navbar {
+            /* 1. Fixed Position */
+            position: fixed;
+            top: 20px; /* Distance from top */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 97%; /* Adjust width as needed */
+            max-width: 1500px; /* Optional max-width */
+            z-index: 1000;
+
+            /* 2. Glass Effect */
+            background: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid black;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+
+            /* 3. Layout and Styling */
+            padding: 1rem 2rem;
+            border-radius: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        /* Navigation */
-        .navbar {
-            background: var(--navbar-bg);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+        .navbar-brand-custom {
+            text-decoration: none;
+            text-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
         }
 
-        .navbar-brand {
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--primary-color) !important;
+        .navbar-brand-custom .team-text {
+            color: #a77df9;
+            font-size: 24px;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 800;
         }
 
-        .navbar-nav .nav-link {
+        .navbar-brand-custom .real-text {
+            color: #a77df9;
+            font-size: 32px;
+            font-family: 'Ethnocentric', 'Impact', sans-serif; /* Fallback font */
+            font-style: italic;
+            vertical-align: middle;
+            
+        }
+
+        .navbar-nav-custom {
+            display: flex;
+            align-items: center;
+            gap: 33px; /* Space between nav items */
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-nav-custom a {
+            color: black;
+            font-size: 18px;
+            font-family: 'DM Sans', sans-serif;
             font-weight: 500;
-            margin: 0 0.5rem;
-            color: var(--text-color) !important;
+            text-decoration: none;
             transition: color 0.3s ease;
         }
+        
+        .navbar-nav-custom a:hover {
+            color: #2563eb; /* Use your --primary-color */
+        }
+        
+        .navbar-nav-custom .dropdown-icon {
+            font-size: 12px;
+            margin-left: 8px;
+        }
+        @media (max-width: 991.98px) {
+        .glass-navbar {
+            /* Adjust padding for smaller screens */
+            padding: 0.1rem 1.5rem;
+            height: 50px;
+        }
 
-        .navbar-nav .nav-link:hover {
-            color: var(--primary-color) !important;
+        .navbar-collapse {
+            /* Add some space when menu is opened */
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        .navbar-nav-custom {
+            /* Stack the links vertically */
+            flex-direction: column;
+            align-items: flex-start; /* Align links to the left */
+            gap: 0.5rem; /* Reduce space between links */
+            width: 100%;
+        }
+
+        .navbar-nav-custom li {
+            width: 100%;
+        }
+
+        .navbar-nav-custom li a {
+            /* Make link touch area larger */
+            display: block;
+            padding: 0.75rem 0;
+            width: 100%;
+        }
+        
+        .navbar-toggler {
+            /* Style the hamburger button */
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            color: black;
+            font-size: 1.25rem;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none; /* Remove default blue glow on click */
+        }
+    }
+
+.dropdown-menu {
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.07);
+    background-color: var(--card-bg);
+}
+
+.dropdown-item {
+    color: var(--text-secondary);
+}
+
+.dropdown-item:hover {
+    color: var(--text-primary);
+    background-color: var(--bg-color);
+}
+
+
+        .dropdown-toggle::after {
+            margin-left: 0.4em;
         }
 
         /* Theme Toggle Button */
@@ -107,9 +511,8 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
-            padding: 100px 0;
+            padding: 90px 3px;
             position: relative;
             overflow: hidden;
         }
@@ -282,13 +685,15 @@
 
         /* Footer */
         .footer {
-            background: var(--footer-bg);
-            color: white;
+            background: transparent;
+            color: black;
             padding: 40px 0;
+            border: 1px solid black;
+            border-radius: 10px;
         }
 
         .social-links a {
-            color: white;
+            color: #a77df9;
             font-size: 1.5rem;
             margin: 0 10px;
             transition: color 0.3s ease;
@@ -367,49 +772,238 @@
         [data-theme="dark"] .linkedin-post {
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
+#loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: white;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    font-family: 'Ethnocentric', 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#loader-wrapper.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Find this rule in your CSS */
+.loading-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #000, #8b5cf6, #000);
+    border-radius: 2px;
+    width: 0%;
+    /* ⬇️ CHANGE THIS VALUE ⬇️ */
+    animation: loadProgress 1s ease-in-out infinite; 
+}
+
+/* Change it to something like this for a 6-second animation */
+.loading-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #000, #8b5cf6, #000);
+    border-radius: 2px;
+    width: 0%;
+    /* ⬇️ NEW, LONGER VALUE ⬇️ */
+    animation: loadProgress 6s ease-in-out infinite;
+}@keyframes revealLetter {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) rotateX(90deg) scale(0.5);
+    }
+    50% {
+        opacity: 0.7;
+        transform: translateY(10px) rotateX(45deg) scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg) scale(1);
+    }
+}
+
+@keyframes colorShift {
+    0%, 75%, 100% {
+        color: #000;
+        text-shadow: none;
+    }
+    25% {
+        color: #8b5cf6;
+        text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+    }
+}
+
+.loading-bar {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 4px;
+    background: #f0f0f0;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.loading-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #000, #8b5cf6, #000);
+    border-radius: 2px;
+    width: 0%;
+    animation: loadProgress 3s ease-in-out infinite;
+}
+
+@keyframes loadProgress {
+    0% { width: 0%; }
+    50% { width: 100%; }
+    100% { width: 100%; }
+}
+
+.orbit {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border: 2px solid rgba(139, 92, 246, 0.2);
+    border-radius: 50%;
+    animation: rotate 1.5s linear infinite;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.orbit::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background: #8b5cf6;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+.orbit::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    right: 50%;
+    width: 8px;
+    height: 8px;
+    background: #000;
+    border-radius: 50%;
+    transform: translateX(50%);
+}
+
+@keyframes rotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.pulse-ring {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    animation: pulse 1s ease-in-out infinite;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.3;
+    }
+}
+
+.loading-text {
+    position: absolute;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: #666;
+    animation: fadeInOut 0.5s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 1; }
+}
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'main:home' %}">
-                {% if profile %}{{ profile.name }}{% else %}Portfolio{% endif %}
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'main:home' %}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'main:about' %}">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'main:projects' %}">Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'main:certificates' %}">Certificates</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'main:contact' %}">Contact</a>
-                    </li>
-                </ul>
-                <!-- Theme Toggle Button -->
-                <button class="theme-toggle" id="themeToggle" title="Toggle theme">
-                    <i class="fas fa-moon" id="themeIcon"></i>
-                </button>
+    <div id="loader-wrapper">
+        <div class="grid-highlight"></div>
+        <div class="grid-highlight"></div>
+        <div class="grid-highlight"></div>
+        <div class="grid-highlight"></div>
+        <div class="grid-highlight"></div>
+        <div class="grid-highlight"></div>
+        <div class="grid-highlight"></div>
+        <div class="grid-highlight"></div>
+        
+        <div class="loader-container">
+            <div class="pulse-ring"></div>
+            <div class="orbit"></div>
+            
+            <div class="letter">R</div>
+            <div class="letter">E</div>
+            <div class="letter">A</div>
+            <div class="letter">L</div>
+            
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
             </div>
+            
+            <div class="loading-text">Loading...</div>
         </div>
-    </nav>
+    </div>
 
-    <!-- Main Content -->
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+   <nav class="glass-navbar navbar navbar-expand-lg">
+    <div class="container-fluid p-0">
+        <a class="navbar-brand-custom" href="{% url 'main:home' %}">
+            <span class="team-text"></span><span class="real-text">REAL</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav-custom ms-auto">
+                <li><a href="{% url 'main:about' %}">Our Team</a></li>
+                <li>
+                    <a href="{% url 'main:projects' %}">Projects</a>
+                </li>
+                <li><a href="{% url 'main:certificates' %}">Gallery</a></li>
+                <li><a href="{% url 'main:contact' %}">Contact Us</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -417,7 +1011,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <h5>{% if profile %}{{ profile.name }}{% else %}Portfolio{% endif %}</h5>
-                    <p class="text-white">
+                    <p style = "color: #a77df9;">
                         Building amazing digital experiences
                     </p>
                 </div>
@@ -444,47 +1038,14 @@
             </div>
         </div>
     </footer>
-
+    <script src=".../bootstrap.bundle.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <!-- AOS Animation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <!-- Custom JS -->
     <script>
-        // Theme Toggle Functionality
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const body = document.body;
-
-        // Check for saved theme preference or default to light
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        
-        // Apply saved theme on page load
-        if (savedTheme === 'dark') {
-            body.setAttribute('data-theme', 'dark');
-            themeIcon.className = 'fas fa-sun';
-        } else {
-            body.removeAttribute('data-theme');
-            themeIcon.className = 'fas fa-moon';
-        }
-
-        // Theme toggle event listener
-        themeToggle.addEventListener('click', function() {
-            const currentTheme = body.getAttribute('data-theme');
-            
-            if (currentTheme === 'dark') {
-                // Switch to light theme
-                body.removeAttribute('data-theme');
-                themeIcon.className = 'fas fa-moon';
-                localStorage.setItem('theme', 'light');
-            } else {
-                // Switch to dark theme
-                body.setAttribute('data-theme', 'dark');
-                themeIcon.className = 'fas fa-sun';
-                localStorage.setItem('theme', 'dark');
-            }
-        });
-
+      
         // Initialize AOS
         AOS.init({
             duration: 800,
@@ -605,6 +1166,25 @@
                 imageObserver.observe(img);
             });
         }
+        document.addEventListener('DOMContentLoaded', function () {
+            const loader = document.getElementById('loader-wrapper');
+            
+            // Hide the loader when the page is fully loaded
+            window.addEventListener('load', () => {
+                loader.classList.add('hidden');
+            });
+
+            // Show the loader when a navbar link is clicked
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    if (link.getAttribute('target') !== '_blank' && href && !href.startsWith('#')) {
+                        loader.classList.remove('hidden');
+                    }
+                });
+            });
+        });
     </script>
 
     {% block extra_js %}

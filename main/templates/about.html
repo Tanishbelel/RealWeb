@@ -1,571 +1,1354 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-<!-- About Hero Section -->
-<section class="hero about-hero">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6" data-aos="fade-right">
-                <h1>About Me</h1>
-                <p class="lead">
-                    {% if profile %}{{ profile.bio }}{% else %}Passionate developer with a love for creating innovative solutions and helping businesses thrive in the digital world.{% endif %}
-                </p>
-                {% if profile.resume %}
-                <a href="{{ profile.resume.url }}" class="btn btn-primary" target="_blank">
-                    <i class="fas fa-download me-2"></i>Download Resume
-                </a>
-                {% endif %}
-            </div>
-            <div class="col-lg-6 text-center" data-aos="fade-left" data-aos-delay="200">
-                {% if profile.profile_image %}
-                <img src="{{ profile.profile_image.url }}" alt="{{ profile.name }}" 
-                     class="img-fluid rounded about-image">
-                {% else %}
-                <div class="about-image-placeholder">
-                    <i class="fas fa-user"></i>
+
+<!-- About Hero Section with 3D Carousel -->
+<div class="hero-section">
+    <div class="carousel-container">
+        <button id="left-btn" class="control-button" aria-label="Previous Card">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="card-3d" id="carousel">
+            <div class="carousel-card team-member">
+                <div class="member-image">
+                    <img src="{% static 'pfp1.png' %}" alt="{% if team_members.0 %}{{ team_members.0.name }}{% else %}Team Member 1{% endif %}" loading="lazy">
                 </div>
-                {% endif %}
+                <div class="member-info">
+                    <h3 style="color: #6c5ce7;">{% if team_members.0 %}{{ team_members.0.name }}{% else %}Tanish Belel{% endif %}</h3>
+                    <p class="member-role" style="color: darkslategrey;">{% if team_members.0 %}{{ team_members.0.role }}{% else %}Lead Developer{% endif %}</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/tanish-belel-6697b72a7/" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/Tanishbelel" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.instagram.com/tanishbelel03/" aria-label="GitHub">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-card team-member">
+                <div class="member-image">
+                    <img src="{% static 'varun.jpg' %}" alt="{% if team_members.1 %}{{ team_members.1.name }}{% else %}Team Member 2{% endif %}" loading="lazy">
+                </div>
+                <div class="member-info">
+                    <h3 style="color: #6c5ce7;">{% if team_members.1 %}{{ team_members.1.name }}{% else %}Varun Chari{% endif %}</h3>
+                    <p class="member-role" style="color: slategray;">{% if team_members.1 %}{{ team_members.1.role }}{% else %}UI/UX Designer{% endif %}</p>
+                    <div class="social-links">
+                        <a href="https://in.linkedin.com/in/varun-chari-b544862b8" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/Varun-Chari"  aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.instagram.com/its_varxxn.05?igsh=MW9kamJ0Mml1Znp4Zg%3D%3D&utm_source=qr" aria-label="GitHub">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-card team-member">
+                <div class="member-image">
+                    <img src="{% static 'kartik.jpg' %}" alt="{% if team_members.2 %}{{ team_members.2.name }}{% else %}Team Member 3{% endif %}" loading="lazy">
+                </div>
+                <div class="member-info">
+                    <h3 style="color: #6c5ce7;">{% if team_members.2 %}{{ team_members.2.name }}{% else %}Kartik Parmar{% endif %}</h3>
+                    <p class="member-role" style="color: #2d3436;">{% if team_members.2 %}{{ team_members.2.role }}{% else %}Backend Developer{% endif %}</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/parmarkartik385?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://share.google/ZPmEkgh4qMIn0ymB0" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.instagram.com/p_kartik_385?igsh=MWdhbndhemR2bmh3dg==" aria-label="GitHub">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-card team-member">
+                <div class="member-image">
+                    <img src="{% static 'jemit.png' %}" alt="{% if team_members.3 %}{{ team_members.3.name }}{% else %}Team Member 4{% endif %}" loading="lazy">
+                </div>
+                <div class="member-info">
+                    <h3 style="color: #6c5ce7;">{% if team_members.3 %}{{ team_members.3.name }}{% else %}Jemit Malnika{% endif %}</h3>
+                    <p class="member-role" style="color: #2d3436;">{% if team_members.3 %}{{ team_members.3.role }}{% else %}Project Manager{% endif %}</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/jemit-malnika-b786a532a/" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/chrolloolucilferr" target="_blank" rel="noopener" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.instagram.com/chrolloolucilferr?igsh=cTB1Y29lYnhidG9y" aria-label="GitHub">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-card team-member">
+                <div class="member-image">
+                    <img src="{% static 'darsh.jpg' %}" alt="{% if team_members.4 %}{{ team_members.4.name }}{% else %}Team Member 5{% endif %}" loading="lazy">
+                </div>
+                <div class="member-info">
+                    <h3 style="color: #6c5ce7;">{% if team_members.4 %}{{ team_members.4.name }}{% else %}Darsh Jilka{% endif %}</h3>
+                    <p class="member-role" style="color: darkslategrey;">{% if team_members.4 %}{{ team_members.4.role }}{% else %}DevOps Engineer{% endif %}</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/darsh-jilka-588a9533a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/Darshh16" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.instagram.com/darshh_16/profilecard/?igsh=NmwxODJuM2g5Znd2" aria-label="GitHub">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
+        <button id="right-btn" class="control-button" aria-label="Next Card">
+            <i class="fas fa-chevron-right"></i>
+        </button>
     </div>
-</section>
+</div>
 
 <!-- Personal Info Section -->
-<section class="section">
+<section class="section personal-info-section">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <div class="about-content con" data-aos="fade-up">
-                    <h2 class="section-title text">Get to Know Me</h2>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="info-item">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="about-content" data-aos="fade-up">
+                    <h2 class="section-title">Our Team</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-icon">
                                 <i class="fas fa-user"></i>
-                                <div>
-                                    <strong>Name:</strong>
-                                    <span>{% if profile %}{{ profile.name }}{% else %}Tanish Belel{% endif %}</span>
-                                </div>
+                            </div>
+                            <div class="info-details">
+                                <strong>Name</strong>
+                                <span>{% if profile %}{{ profile.name }}{% else %}Tanish Belel{% endif %}</span>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="info-item">
+                        <div class="info-item">
+                            <div class="info-icon">
                                 <i class="fas fa-envelope"></i>
-                                <div>
-                                    <strong>Email:</strong>
-                                    <span>{% if profile %}{{ profile.email }}{% else %}tanishbelel03@gmail.com{% endif %}</span>
-                                </div>
+                            </div>
+                            <div class="info-details">
+                                <strong>Email</strong>
+                                <span>{% if profile %}{{ profile.email }}{% else %}tanishbelel03@gmail.com{% endif %}</span>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="info-item">
+                        <div class="info-item">
+                            <div class="info-icon">
                                 <i class="fas fa-phone"></i>
-                                <div>
-                                    <strong>Phone:</strong>
-                                    <span>{% if profile %}{{ profile.phone }}{% else %}+91 9152092283{% endif %}</span>
-                                </div>
+                            </div>
+                            <div class="info-details">
+                                <strong>Phone</strong>
+                                <span>{% if profile %}{{ profile.phone }}{% else %}+91 9152092283{% endif %}</span>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="info-item">
+                        <div class="info-item">
+                            <div class="info-icon">
                                 <i class="fas fa-map-marker-alt"></i>
-                                <div>
-                                    <strong>Location:</strong>
-                                    <span>{% if profile %}{{ profile.location }}{% else %}Mumbai, India{% endif %}</span>
-                                </div>
+                            </div>
+                            <div class="info-details">
+                                <strong>Location</strong>
+                                <span>{% if profile %}{{ profile.location }}{% else %}Mumbai, India{% endif %}</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-
-<!-- Skills Section -->
-<section class="section" style="background: var(--light-gray);">
-    <div class="container">
-        <h2 class="section-title" data-aos="fade-up">Skills & Expertise</h2>
-        <div class="row">
-            {% for skill in featured_skills %}
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
-                <div class="skill-item">
-                    <i class="fas fa-{% if skill.category == 'technical' %}code{% elif skill.category == 'tools' %}tools{% else %}lightbulb{% endif %}"></i>
-                    <h5>{{ skill.name }}</h5>
-                   
-                </div>
-            </div>
-            {% empty %}
-            <div class="col-12 text-center">
-                <p class="text-muted">No skills added yet. Add skills from the admin panel.</p>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-<!-- Experience Section -->
-<section class="section">
-    <div class="container">
-        <h2 class="section-title" data-aos="fade-up">Professional Experience</h2>
-        <div class="timeline">
-            {% for exp in experience %}
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                    <h5 class = "text-black">{{ exp.position }}</h5>
-                    <h6 class="text-primary">{{ exp.company }}</h6>
-                    <div class="timeline-date">
-                        <i class="fas fa-calendar-alt me-2"></i>
-                        {{ exp.start_date|date:"M Y" }} - 
-                        {% if exp.end_date %}{{ exp.end_date|date:"M Y" }}{% else %}Present{% endif %}
-                    </div>
-                    <p class="mt-3 text-muted">{{ exp.description }}</p>
-                    {% if exp.technologies %}
-                    <div class="mt-3">
-                        <strong>Technologies:</strong>
-                        <div class="tech-tags mt-2">
-                            {% for tech in exp.technologies|slice:":5" %}
-                            <span class="badge bg-secondary me-1">{{ tech|title }}</span>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-            {% empty %}
-            <div class="text-center">
-                <p class="text-muted">No experience added yet.</p>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-<!-- Education Section -->
-<section class="section" style="background: var(--light-gray);">
-    <div class="container">
-        <h2 class="section-title" data-aos="fade-up">Education</h2>
-        <div class="row">
-            {% for edu in education %}
-            <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
-                <div class="education-item">
-                    <div class="education-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="education-content">
-                        <h5 class = "text">{{ edu.degree }}</h5>
-                        <h6 class="text-primary">{{ edu.institution }}</h6>
-                        <div class="education-date">
-                            <i class="fas fa-calendar-alt me-2"></i>
-                            {{ edu.start_date|date:"Y" }} - 
-                            {% if edu.end_date %}{{ edu.end_date|date:"Y" }}{% else %}Present{% endif %}
-                        </div>
-                        {% if edu.gpa %}
-                        <div class="mt-2">
-                            <strong>GPA:</strong> {{ edu.gpa }}
-                        </div>
-                        {% endif %}
-                        {% if edu.description %}
-                        <p class="mt-3 text-muted">{{ edu.description }}</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            {% empty %}
-            <div class="col-12 text-center">
-                <p class="text-muted">No education records added yet.</p>
-            </div>
-            {% endfor %}
         </div>
     </div>
 </section>
 
 <!-- Fun Facts Section -->
-<section class="section">
+<section class="section fun-facts-section">
     <div class="container">
-        <h2 class="section-title" data-aos="fade-up">Fun Facts</h2>
-        <div class="row">
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="fun-fact">
+        <h2 class="section-title text-center" data-aos="fade-up">Fun Facts</h2>
+        <div class="facts-grid">
+            <div class="fun-fact" data-aos="fade-up" data-aos-delay="100">
+                <div class="fact-icon">
                     <i class="fas fa-code"></i>
-                    <h4 class="counter">{{ skills.count|default:"50" }}</h4>
-                    <p>Technologies Mastered</p>
                 </div>
+                <h4 class="counter">{{ skills.count|default:"50" }}</h4>
+                <p>Technologies Mastered</p>
             </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="fun-fact">
+            <div class="fun-fact" data-aos="fade-up" data-aos-delay="200">
+                <div class="fact-icon">
                     <i class="fas fa-project-diagram"></i>
-                    <h4 class="counter">25</h4>
-                    <p>Projects Completed</p>
                 </div>
+                <h4 class="counter">25</h4>
+                <p>Projects Completed</p>
             </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="fun-fact">
+            <div class="fun-fact" data-aos="fade-up" data-aos-delay="300">
+                <div class="fact-icon">
                     <i class="fas fa-coffee"></i>
-                    <h4 class="counter">1000</h4>
-                    <p>Cups of Coffee</p>
                 </div>
+                <h4 class="counter">1000</h4>
+                <p>Cups of Coffee</p>
             </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                <div class="fun-fact">
+            <div class="fun-fact" data-aos="fade-up" data-aos-delay="400">
+                <div class="fact-icon">
                     <i class="fas fa-clock"></i>
-                    <h4 class="counter">5000+</h4>
-                    <p>Hours of Coding</p>
                 </div>
+                <h4 class="counter">5000</h4>
+                <p>Hours of Coding</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- CTA Section -->
-<section class="section" style="background: var(--primary-color); color: white;">
+<section class="section" style="background: transparent; color: black; border: 1px solid black; border-radius:10px">
     <div class="container text-center">
         <div data-aos="fade-up">
-            <h2>Let's Build Something Amazing Together</h2>
-            <p class="lead">Ready to discuss your next project?</p>
-            <a href="{% url 'main:contact' %}" class="btn btn-light btn-lg me-3">
-                <i class="fas fa-envelope me-2"></i>Get In Touch
-            </a>
-            <a href="{% url 'main:projects' %}" class="btn btn-outline-light btn-lg">
-                <i class="fas fa-eye me-2"></i>View My Work
+            <h2>Ready to Work Together?</h2>
+            <p class="lead">Let's discuss your next project and bring your ideas to life.</p>
+            <a href="{% url 'main:contact' %}" class="btn btn-lg" style="background:#a77df9">
+                <i class="fas fa-paper-plane me-2"></i>Start a Conversation
             </a>
         </div>
     </div>
 </section>
 
 <style>
-/* About Page Specific Styles */
-.about-hero {
-    padding: 120px 0 80px;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: white;
+/* CSS Variables for consistent theming */
+:root {
+    --primary-color: #a77df9;
+    --secondary-color: #6c5ce7;
+    --accent-color: #fd79a8;
+    --text-color: #2d3436;
+    --light-gray: #f8f9fa;
+    --dark-gray: #6c757d;
+    --white: #ffffff;
+    --shadow-light: 0 5px 15px rgba(0,0,0,0.08);
+    --shadow-medium: 0 10px 30px rgba(0,0,0,0.12);
+    --shadow-heavy: 0 20px 40px rgba(0,0,0,0.15);
+    --border-radius: 15px;
+    --transition: all 0.3s ease;
 }
 
-.about-image {
-    max-width: 400px;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    border: 5px solid rgba(255,255,255,0.3);
+/* Reset and base styles */
+* {
+    box-sizing: border-box;
 }
 
-.about-image-placeholder {
-    width: 400px;
-    height: 400px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 20px;
+/* Hero Section with Team Carousel - Light Theme */
+.hero-section {
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+    padding: 10rem 1rem;
+    overflow: hidden;
 }
 
-.about-image-placeholder i {
-    font-size: 100px;
-    color: rgba(255,255,255,0.7);
+.carousel-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 900px;
+    height: 450px;
+}
+
+.card-3d {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform: perspective(1500px);
+    transition: transform 0.8s ease-in-out;
+}
+
+.carousel-card.team-member {
+    position: absolute;
+    width: 260px;
+    height: 360px;
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: var(--border-radius);
+    top: 50%;
+    left: 50%;
+    transform-origin: center center;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    color: var(--text-color);
+    text-align: center;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+}
+
+.carousel-card.team-member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.member-image {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid var(--primary-color);
+    position: relative;
+}
+
+.member-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.carousel-card.team-member:hover .member-image img {
+    transform: scale(1.1);
+}
+
+/* Placeholder for missing images */
+.member-image::before {
+    content: '👤';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    color: #6c757d;
+    z-index: 1;
+}
+
+.member-image img {
+    position: relative;
+    z-index: 2;
+}
+
+.member-info h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.member-role {
+    font-size: 1rem;
+    color: var(--dark-gray);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: auto;
+}
+
+.social-links a {
+    width: 45px;
+    height: 45px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: var(--transition);
+    font-size: 1.2rem;
+}
+
+.social-links a:hover {
+    background: var(--secondary-color);
+    transform: translateY(-3px);
+}
+
+.social-links a[href="#"] {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.social-links a[href="#"]:hover {
+    background: #bbb;
+    transform: none;
+}
+
+/* Card positioning for 5-card team carousel */
+.card-3d .carousel-card.team-member:nth-child(1) {
+    transform: translate(-50%, -50%) rotateY(0deg) translateZ(350px);
+}
+
+.card-3d .carousel-card.team-member:nth-child(2) {
+    transform: translate(-50%, -50%) rotateY(72deg) translateZ(350px);
+}
+
+.card-3d .carousel-card.team-member:nth-child(3) {
+    transform: translate(-50%, -50%) rotateY(144deg) translateZ(350px);
+}
+
+.card-3d .carousel-card.team-member:nth-child(4) {
+    transform: translate(-50%, -50%) rotateY(216deg) translateZ(350px);
+}
+
+.card-3d .carousel-card.team-member:nth-child(5) {
+    transform: translate(-50%, -50%) rotateY(288deg) translateZ(350px);
+}
+
+/* Control buttons - Light theme */
+.control-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: var(--transition);
+    z-index: 10;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+#left-btn {
+    left: 20px;
+}
+
+#right-btn {
+    right: 20px;
+}
+
+.control-button:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.control-button:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+/* Animation for team member cards */
+@keyframes teamMemberPulse {
+    0%, 100% { 
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    50% { 
+        box-shadow: 0 15px 35px rgba(167, 125, 249, 0.3);
+    }
+}
+
+.is-animating-brightness .carousel-card.team-member {
+    animation: teamMemberPulse 4s ease-in-out infinite;
+}
+
+/* Personal Info Section */
+.personal-info-section {
+    padding: 5rem 0;
+    background: white;
 }
 
 .about-content {
     background: white;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    margin-top: -50px;
+    padding: 3rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    border: 1px solid black;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2d3436;
+    margin-bottom: 3rem;
+    text-align: center;
     position: relative;
-    z-index: 2;
+}
+
+
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
 }
 
 .info-item {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
-    padding: 15px;
-    background: var(--light-gray);
-    border-radius: 10px;
-    transition: transform 0.3s ease;
+    padding: 1.5rem;
+    background: white;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    border: 1px solid black;
+    color: #2d3436;
 }
 
 .info-item:hover {
-    transform: translateY(-3px);
-}
-
-.info-item i {
-    font-size: 20px;
-    color: var(--primary-color);
-    margin-right: 15px;
-    width: 25px;
-    text-align: center;
-}
-
-.skill-item-detailed {
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-}
-
-.skill-item-detailed:hover {
     transform: translateY(-5px);
+    box-shadow: var(--shadow-light);
 }
 
-.skill-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.skill-percentage {
-    font-weight: bold;
-    color: var(--primary-color);
-}
-
-.progress {
-    height: 8px;
-    background: #e9ecef;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.progress-bar {
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-    border-radius: 10px;
-    transition: width 2s ease-in-out;
-}
-
-.timeline {
-    position: relative;
-    padding: 20px 0;
-}
-
-.timeline::before {
-    content: '';
-    position: absolute;
-    left: 30px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: var(--primary-color);
-}
-
-.timeline-item {
-    position: relative;
-    margin-bottom: 30px;
-    padding-left: 80px;
-}
-
-.timeline-marker {
-    position: absolute;
-    left: 20px;
-    top: 0;
-    width: 20px;
-    height: 20px;
-    background: var(--primary-color);
-    border-radius: 50%;
-    border: 4px solid white;
-    box-shadow: 0 0 0 4px var(--primary-color);
-}
-
-.timeline-content {
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    position: relative;
-}
-
-.timeline-content::before {
-    content: '';
-    position: absolute;
-    left: -15px;
-    top: 20px;
-    width: 0;
-    height: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-right: 15px solid white;
-}
-
-.timeline-date {
-    color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 10px;
-}
-
-.tech-tags .badge {
-    font-size: 0.8rem;
-    padding: 8px 12px;
-    margin-bottom: 5px;
-}
-
-.education-item {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    display: flex;
-    align-items: flex-start;
-    transition: transform 0.3s ease;
-}
-
-.education-item:hover {
-    transform: translateY(-5px);
-}
-
-.education-icon {
-    background: var(--primary-color);
-    color: white;
-    width: 60px;
-    height: 60px;
+.info-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 20px;
+    margin-right: 1rem;
     flex-shrink: 0;
 }
 
-.education-icon i {
-    font-size: 24px;
+.info-icon i {
+    color: white;
+    font-size: 1.2rem;
 }
 
-.education-content {
-    flex: 1;
+.info-details {
+    display: flex;
+    flex-direction: column;
+    color:#2d3436;
 }
 
-.education-date {
-    color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 10px;
+.info-details strong {
+    color:black;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.info-details span {
+    color: black;
+    word-break: break-all;
+}
+
+/* Fun Facts Section */
+.fun-facts-section {
+    padding: 5rem 0;
+    background: white;
+}
+
+.facts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
 }
 
 .fun-fact {
     text-align: center;
-    padding: 30px 20px;
+    padding: 2.5rem 1.5rem;
+    background: transparent;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    border: 1px solid black;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.fun-fact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
     background: white;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
 }
 
 .fun-fact:hover {
     transform: translateY(-10px);
+    box-shadow: var(--shadow-medium);
 }
 
-.fun-fact i {
-    font-size: 48px;
-    color: var(--primary-color);
-    margin-bottom: 20px;
+.fact-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.fact-icon i {
+    font-size: 2rem;
+    color: white;
 }
 
 .fun-fact h4 {
     font-size: 2.5rem;
-    font-weight: bold;
+    font-weight: 700;
     color: var(--primary-color);
-    margin-bottom: 10px;
+    margin-bottom: 0.5rem;
 }
 
 .fun-fact p {
-    color: #666;
+    color: var(--dark-gray);
     margin: 0;
+    font-weight: 500;
+}
+
+/* CTA Section */
+.cta-section {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+.cta-content {
+    color: white;
+}
+
+.cta-content h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.cta-content .lead {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.btn-primary {
+    background: white;
+    color: var(--primary-color);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+    box-shadow: var(--shadow-light);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+    color: var(--primary-color);
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+    .carousel-container {
+        max-width: 700px;
+        height: 350px;
+    }
+    
+    .carousel-card.team-member {
+        width: 220px;
+        height: 300px;
+        padding: 1rem;
+    }
+    
+    .member-image {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 1rem;
+    }
+    
+    .member-info h3 {
+        font-size: 1.2rem;
+    }
+    
+    .member-role {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+    
+    .social-links a {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .card-3d .carousel-card.team-member:nth-child(1),
+    .card-3d .carousel-card.team-member:nth-child(2),
+    .card-3d .carousel-card.team-member:nth-child(3),
+    .card-3d .carousel-card.team-member:nth-child(4),
+    .card-3d .carousel-card.team-member:nth-child(5) {
+        transform: translate(-50%, -50%) rotateY(calc(var(--card-index) * 72deg)) translateZ(280px);
+    }
+}
+
 @media (max-width: 768px) {
-    .about-hero {
-        padding: 80px 0 40px;
+    .hero-section {
+        min-height: 80vh;
+        padding: 1rem;
+    }
+    
+    .carousel-container {
+        max-width: 500px;
+        height: 300px;
+    }
+    
+    .carousel-card.team-member {
+        width: 180px;
+        height: 260px;
+        padding: 1rem;
+    }
+    
+    .member-image {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 1rem;
+        border-width: 3px;
+    }
+    
+    .member-image::before {
+        font-size: 2rem;
+    }
+    
+    .member-info h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .member-role {
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+    }
+    
+    .social-links {
+        gap: 0.8rem;
+    }
+    
+    .social-links a {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+    
+    .control-button {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    #left-btn {
+        left: 10px;
+    }
+    
+    #right-btn {
+        right: 10px;
+    }
+    
+    .card-3d .carousel-card.team-member:nth-child(1),
+    .card-3d .carousel-card.team-member:nth-child(2),
+    .card-3d .carousel-card.team-member:nth-child(3),
+    .card-3d .carousel-card.team-member:nth-child(4),
+    .card-3d .carousel-card.team-member:nth-child(5) {
+        transform: translate(-50%, -50%) rotateY(calc(var(--card-index) * 72deg)) translateZ(200px);
+    }
+    
+    .section {
+        padding: 3rem 0;
     }
     
     .about-content {
-        margin-top: 30px;
-        padding: 30px 20px;
+        padding: 2rem 1.5rem;
+        border: black;
     }
     
-    .timeline::before {
-        left: 15px;
+    .section-title {
+        font-size: 2rem;
     }
     
-    .timeline-item {
-        padding-left: 50px;
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
     
-    .timeline-marker {
-        left: 5px;
+    .info-item {
+        padding: 1rem;
     }
     
-    .education-item {
-        flex-direction: column;
-        text-align: center;
+    .facts-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
     }
     
-    .education-icon {
-        margin-right: 0;
-        margin-bottom: 20px;
+    .fun-fact {
+        padding: 2rem 1rem;
+    }
+    
+    .fact-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .fact-icon i {
+        font-size: 1.5rem;
+    }
+    
+    .fun-fact h4 {
+        font-size: 2rem;
+    }
+    
+    .cta-content h2 {
+        font-size: 2rem;
+    }
+    
+    .cta-content .lead {
+        font-size: 1.1rem;
     }
 }
-.text{
-    color: var(--text-color) !important;
-}
-.con{
-    background-color: var(--background-color);
 
+@media (max-width: 480px) {
+    .carousel-container {
+        height: 250px;
+    }
+    
+    .carousel-card.team-member {
+        width: 140px;
+        height: 200px;
+        padding: 0.8rem;
+    }
+    
+    .member-image {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 0.8rem;
+        border-width: 2px;
+    }
+    
+    .member-image::before {
+        font-size: 1.5rem;
+    }
+    
+    .member-info h3 {
+        font-size: 1rem;
+        margin-bottom: 0.2rem;
+    }
+    
+    .member-role {
+        font-size: 0.75rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .social-links {
+        gap: 0.5rem;
+    }
+    
+    .social-links a {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+    
+    .control-button {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .card-3d .carousel-card.team-member:nth-child(1),
+    .card-3d .carousel-card.team-member:nth-child(2),
+    .card-3d .carousel-card.team-member:nth-child(3),
+    .card-3d .carousel-card.team-member:nth-child(4),
+    .card-3d .carousel-card.team-member:nth-child(5) {
+        transform: translate(-50%, -50%) rotateY(calc(var(--card-index) * 72deg)) translateZ(150px);
+    }
+    
+    .info-details span {
+        font-size: 0.9rem;
+    }
+    
+    .facts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: #f8f9fa;
+        --light-gray: #2d3436;
+        --white: white;
+        --dark-gray: #ddd;
+    }
+    
+    .personal-info-section {
+        background: white;
+    }
+    
+    .fun-facts-section {
+        background: white;
+    }
+}
+
+/* Print styles */
+@media print {
+    .hero-section,
+    .control-button {
+        display: none;
+    }
+    
+    .section {
+        padding: 1rem 0;
+        break-inside: avoid;
+    }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .card-3d {
+        transition: none;
+    }
+    
+    .is-animating-brightness .carousel-card {
+        animation: none;
+    }
+}
+
+/* Focus styles for accessibility */
+.control-button:focus,
+.btn-primary:focus {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .carousel-card {
+        border: 3px solid white;
+    }
+    
+    .info-item {
+        border: 2px solid var(--primary-color);
+    }
+    
+    .fun-fact {
+        border: 2px solid var(--primary-color);
+    }
 }
 </style>
 
 <script>
-// Counter Animation
-function animateCounters() {
-    const counters = document.querySelectorAll('.counter');
-    
-    counters.forEach(counter => {
-        const target = parseInt(counter.innerText);
-        const increment = target / 100;
-        let current = 0;
+// Enhanced carousel functionality with improved responsiveness
+class ResponsiveCarousel {
+    constructor() {
+        this.carousel = document.getElementById('carousel');
+        this.leftBtn = document.getElementById('left-btn');
+        this.rightBtn = document.getElementById('right-btn');
+        this.currentAngle = 0;
+        this.cardAngle = 72; // 360 degrees / 5 cards
+        this.autoRunInterval = null;
+        this.isUserInteracting = false;
         
-        const updateCounter = () => {
-            if (current < target) {
-                current += increment;
-                counter.innerText = Math.ceil(current);
-                setTimeout(updateCounter, 20);
-            } else {
-                counter.innerText = target;
+        this.init();
+    }
+    
+    init() {
+        this.setupEventListeners();
+        this.updateCarouselSize();
+        this.startAutoRun();
+        
+        // Update carousel on window resize
+        window.addEventListener('resize', this.debounce(() => {
+            this.updateCarouselSize();
+        }, 250));
+    }
+    
+    updateCarouselSize() {
+        const width = window.innerWidth;
+        let translateZ = 350;
+        
+        if (width <= 480) {
+            translateZ = 150;
+        } else if (width <= 768) {
+            translateZ = 200;
+        } else if (width <= 1200) {
+            translateZ = 280;
+        }
+        
+        // Update CSS custom property for card positioning
+        document.documentElement.style.setProperty('--carousel-translateZ', `${translateZ}px`);
+        
+        // Update card positions for team members
+        const cards = this.carousel.querySelectorAll('.carousel-card.team-member');
+        cards.forEach((card, index) => {
+            const angle = index * this.cardAngle;
+            card.style.transform = `translate(-50%, -50%) rotateY(${angle}deg) translateZ(${translateZ}px)`;
+        });
+    }
+    
+    rotateCarousel(angle) {
+        this.carousel.style.transform = `perspective(1500px) rotateY(${angle}deg)`;
+    }
+    
+    startAutoRun() {
+        if (this.autoRunInterval || this.isUserInteracting) return;
+        
+        this.carousel.classList.add('is-animating-brightness');
+        this.autoRunInterval = setInterval(() => {
+            this.currentAngle -= 0.2;
+            this.rotateCarousel(this.currentAngle);
+        }, 30);
+    }
+    
+    stopAutoRun() {
+        if (!this.autoRunInterval) return;
+        
+        clearInterval(this.autoRunInterval);
+        this.autoRunInterval = null;
+        this.carousel.classList.remove('is-animating-brightness');
+    }
+    
+    snapToCard() {
+        const remainder = this.currentAngle % this.cardAngle;
+        const targetAngle = Math.round(this.currentAngle / this.cardAngle) * this.cardAngle;
+        this.currentAngle = targetAngle;
+        this.rotateCarousel(this.currentAngle);
+    }
+    
+    navigateLeft() {
+        this.stopAutoRun();
+        this.isUserInteracting = true;
+        this.snapToCard();
+        this.currentAngle += this.cardAngle;
+        this.rotateCarousel(this.currentAngle);
+        this.resetAutoRunTimeout();
+    }
+    
+    navigateRight() {
+        this.stopAutoRun();
+        this.isUserInteracting = true;
+        this.snapToCard();
+        this.currentAngle -= this.cardAngle;
+        this.rotateCarousel(this.currentAngle);
+        this.resetAutoRunTimeout();
+    }
+    
+    resetAutoRunTimeout() {
+        clearTimeout(this.autoRunTimeout);
+        this.autoRunTimeout = setTimeout(() => {
+            this.isUserInteracting = false;
+            this.startAutoRun();
+        }, 5000);
+    }
+    
+    setupEventListeners() {
+        // Keyboard controls
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowRight') {
+                event.preventDefault();
+                this.navigateRight();
+            } else if (event.key === 'ArrowLeft') {
+                event.preventDefault();
+                this.navigateLeft();
             }
+        });
+        
+        // Button controls
+        this.leftBtn.addEventListener('click', () => this.navigateLeft());
+        this.rightBtn.addEventListener('click', () => this.navigateRight());
+        
+        // Mouse/touch interactions
+        this.carousel.addEventListener('mouseenter', () => {
+            this.stopAutoRun();
+            this.snapToCard();
+        });
+        
+        this.carousel.addEventListener('mouseleave', () => {
+            if (!this.isUserInteracting) {
+                this.startAutoRun();
+            }
+        });
+        
+        // Touch support for mobile
+        let startX = 0;
+        let endX = 0;
+        
+        this.carousel.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            this.stopAutoRun();
+        });
+        
+        this.carousel.addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+            
+            if (Math.abs(diff) > 50) { // Minimum swipe distance
+                if (diff > 0) {
+                    this.navigateRight();
+                } else {
+                    this.navigateLeft();
+                }
+            }
+        });
+    }
+    
+    debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+}
+
+// Counter Animation with Intersection Observer
+class CounterAnimator {
+    constructor() {
+        this.counters = document.querySelectorAll('.counter');
+        this.animated = false;
+        this.setupObserver();
+    }
+    
+    setupObserver() {
+        const options = {
+            threshold: 0.7,
+            rootMargin: '0px 0px -50px 0px'
         };
         
-        updateCounter();
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !this.animated) {
+                    this.animateCounters();
+                    this.animated = true;
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, options);
+        
+        const funFactsSection = document.querySelector('.fun-facts-section');
+        if (funFactsSection) {
+            observer.observe(funFactsSection);
+        }
+    }
+    
+    animateCounters() {
+        this.counters.forEach(counter => {
+            const target = parseInt(counter.innerText.replace(/[^\d]/g, ''));
+            const increment = target / 100;
+            let current = 0;
+            
+            const updateCounter = () => {
+                if (current < target) {
+                    current += increment;
+                    const value = Math.ceil(current);
+                    
+                    // Format number with + for 5000+
+                    if (target >= 5000) {
+                        counter.innerText = value + '+';
+                    } else {
+                        counter.innerText = value;
+                    }
+                    
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    // Final value
+                    if (target >= 5000) {
+                        counter.innerText = target + '+';
+                    } else {
+                        counter.innerText = target;
+                    }
+                }
+            };
+            
+            updateCounter();
+        });
+    }
+}
+
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize carousel
+    new ResponsiveCarousel();
+    
+    // Initialize counter animation
+    new CounterAnimator();
+    
+    // Add smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    
+    // Lazy loading for team member images
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    // Handle image loading errors gracefully
+                    img.onerror = function() {
+                        this.style.display = 'none';
+                        // Show placeholder emoji
+                        const placeholder = this.parentElement.querySelector('::before');
+                        if (placeholder) {
+                            this.parentElement.style.position = 'relative';
+                        }
+                    };
+                    
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                    }
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+        
+        // Observe both regular images and team member images
+        document.querySelectorAll('img[data-src], .member-image img').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+    
+    // Track social link clicks for analytics
+    document.querySelectorAll('.social-links a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const platform = link.querySelector('i').classList.contains('fa-linkedin') ? 'linkedin' : 'github';
+            const memberName = link.closest('.team-member').querySelector('h3').textContent;
+            
+            // Prevent navigation if href is placeholder
+            if (link.getAttribute('href') === '#') {
+                e.preventDefault();
+                console.log(`${platform} link not available for ${memberName}`);
+                return;
+            }
+            
+            // Track the interaction
+            trackUserInteraction('social_link_click', `${platform}_${memberName}`);
+        });
+    });
+    
+    // Performance optimization: Reduce motion for users who prefer it
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    
+    if (prefersReducedMotion.matches) {
+        // Disable auto-rotation for users who prefer reduced motion
+        const carousel = document.querySelector('.carousel-container');
+        if (carousel) {
+            carousel.style.setProperty('--animation-duration', '0s');
+        }
+    }
+    
+    // Add loading state management
+    window.addEventListener('load', () => {
+        document.body.classList.add('loaded');
+        
+        // Trigger any entrance animations
+        const elementsToAnimate = document.querySelectorAll('[data-aos]');
+        elementsToAnimate.forEach(element => {
+            element.classList.add('aos-animate');
+        });
+    });
+    
+    // Error handling for missing elements
+    const requiredElements = ['#carousel', '#left-btn', '#right-btn'];
+    const missingElements = requiredElements.filter(selector => !document.querySelector(selector));
+    
+    if (missingElements.length > 0) {
+        console.warn('Missing required elements:', missingElements);
+    }
+    
+    // Add focus management for better accessibility
+    const focusableElements = document.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    
+    // Trap focus within carousel when using keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+            const firstFocusable = focusableElements[0];
+            const lastFocusable = focusableElements[focusableElements.length - 1];
+            
+            if (e.shiftKey && document.activeElement === firstFocusable) {
+                e.preventDefault();
+                lastFocusable.focus();
+            } else if (!e.shiftKey && document.activeElement === lastFocusable) {
+                e.preventDefault();
+                firstFocusable.focus();
+            }
+        }
+    });
+});
+
+// Service Worker registration for offline functionality (optional)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('SW registered: ', registration);
+            })
+            .catch(registrationError => {
+                console.log('SW registration failed: ', registrationError);
+            });
     });
 }
 
-// Trigger counter animation when section is visible
-const observerOptions = {
-    threshold: 0.7,
-    rootMargin: '0px 0px -100px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            animateCounters();
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-document.addEventListener('DOMContentLoaded', function() {
-    const funFactsSection = document.querySelector('.fun-fact').closest('.section');
-    if (funFactsSection) {
-        observer.observe(funFactsSection);
-    }
+// Add error boundary for JavaScript errors
+window.addEventListener('error', (e) => {
+    console.error('JavaScript error:', e.error);
     
-    // Animate progress bars
-    const progressBars = document.querySelectorAll('.progress-bar');
-    progressBars.forEach(bar => {
-        const percentage = bar.getAttribute('data-percentage');
-        setTimeout(() => {
-            bar.style.width = percentage + '%';
-        }, 500);
-    });
+    // Graceful degradation - ensure basic functionality works
+    const carousel = document.getElementById('carousel');
+    if (carousel && !carousel.style.transform) {
+        carousel.style.transform = 'perspective(1500px) rotateY(0deg)';
+    }
 });
+
+// Analytics and performance monitoring (placeholder)
+function trackUserInteraction(action, element) {
+    // This would integrate with your analytics service
+    if (typeof gtag !== 'undefined') {
+        gtag('event', action, {
+            event_category: 'engagement',
+            event_label: element
+        });
+    }
+}
+
+// Export functions for potential external use
+window.portfolioUtils = {
+    ResponsiveCarousel,
+    CounterAnimator,
+    trackUserInteraction
+};
 </script>
 
 {% endblock %}

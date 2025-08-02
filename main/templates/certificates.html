@@ -1,19 +1,8 @@
 {% extends 'base.html' %}
 
-{% block title %}Certificates - {{ profile.name }}{% endblock %}
+{% block title %}Gallery - {{ profile.name }}{% endblock %}
 
 {% block content %}
-<!-- Page Header -->
-<section class="hero" style="padding: 120px 0 80px;">
-    <div class="container">
-        <div class="text-center">
-            <h1 data-aos="fade-up">My Certificates</h1>
-            <p class="lead" data-aos="fade-up" data-aos-delay="100">
-                Professional certifications and achievements
-            </p>
-        </div>
-    </div>
-</section>
 
 <!-- Certificates Grid -->
 <section class="section">
@@ -33,13 +22,7 @@
                         <h5 class="card-title">{{ certificate.title }}</h5>
                         <h6 class="card-subtitle mb-2 text">{{ certificate.issuer }}</h6>
                         <p class="card-text">
-                            <small class="text">
-                                <i class="fas fa-calendar me-1"></i>
-                                Issued: {{ certificate.issue_date|date:"M Y" }}
-                                {% if certificate.expiry_date %}
-                                <br>Expires: {{ certificate.expiry_date|date:"M Y" }}
-                                {% endif %}
-                            </small>
+                            
                         </p>
                         {% if certificate.description %}
                         <p class="card-text">{{ certificate.description|truncatewords:15 }}</p>
@@ -51,11 +34,6 @@
                             </small>
                         </p>
                         {% endif %}
-                        {% if certificate.credential_url %}
-                        <a href="{{ certificate.credential_url }}" class="btn btn-primary btn-sm" target="_blank">
-                            <i class="fas fa-external-link-alt me-1"></i>Verify Certificate
-                        </a>
-                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -63,7 +41,7 @@
             <div class="col-12">
                 <div class="text-center py-5">
                     <i class="fas fa-certificate fa-4x text-muted mb-3"></i>
-                    <h4>No Certificates Yet</h4>
+                    <h4>No Photos Yet</h4>
                     <p class="text-muted">Certificates will be displayed here once added.</p>
                 </div>
             </div>
@@ -224,4 +202,4 @@ document.querySelector('.close-modal').addEventListener('click', function (e) {
     closeModal();
 });
 </script>
-{% endblock %}
+{% endblock %}x
